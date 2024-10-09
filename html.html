@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Validation</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>
+            Term:
+            <select id="termOfEnrolCert">
+                <option value="">Choose</option>
+                <option value="First Semester">First Semester</option>
+                <option value="Second Semester">Second Semester</option>
+                <option value="Midyear">Mid Year</option>
+            </select>
+        </label>
+        <br>
+        <label>
+            From Year:
+            <input type="number" id="fromYear" placeholder="2020">
+        </label>
+        <br>
+        <label>
+            To Year:
+            <input type="number" id="toYear" placeholder="2024">
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="CertEnrollment">
+            Certificate of Enrollment
+        </label>
+        <br>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('CertEnrollment');
+    const termSelect = document.getElementById('termOfEnrolCert');
+    const fromYear = document.getElementById('fromYear');
+    const toYear = document.getElementById('toYear');
+
+    function validateInputs() {
+        const termSelected = termSelect.value !== "";
+        const fromYearFilled = fromYear.value.trim() !== "";
+        const toYearFilled = toYear.value.trim() !== "";
+        return termSelected && fromYearFilled && toYearFilled;
+    }
+
+    function updateCheckboxState() {
+        if (validateInputs()) {
+            checkbox.disabled = false; // Enable the checkbox if all inputs are filled
+        } else {
+            checkbox.disabled = true; // Disable the checkbox if any input is missing
+            checkbox.checked = false; // Uncheck the checkbox
+        }
+
+    }
+
+    // Attach event listeners to input fields to check validity on changes
+    termSelect.addEventListener('change', updateCheckboxState);
+    fromYear.addEventListener('input', updateCheckboxState);
+    toYear.addEventListener('input', updateCheckboxState);
+
+    // Initial check to set checkbox state based on current input values
+    updateCheckboxState();
+});
+
+
+
+    </script>
+</body>
+</html>
